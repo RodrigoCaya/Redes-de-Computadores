@@ -28,4 +28,4 @@ def ClienteTCP():
 
 
 #ClienteUDP()
-#ClienteTCP()
+ClienteTCP()

@@ -34,7 +34,7 @@ def ServidorTCP():
         socketCliente.close()
 
 #ServidorUDP()
-#ServidorTCP()
+ServidorTCP()
 
 
 
