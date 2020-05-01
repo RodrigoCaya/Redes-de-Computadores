@@ -7,7 +7,6 @@ def enviarTxt(mensaje):
     f.write(mensaje)
     f.close()
 
-
 def ClienteUDP():
     # 49152 - 65535
     puertoServidor = 55555
@@ -18,7 +17,6 @@ def ClienteUDP():
     #esperar una respuesta
     mensaje, _ = socketCliente.recvfrom(2048)
     print(mensaje.decode())
-    enviarTxt(mensaje.decode())
     socketCliente.close()
 
 
@@ -34,9 +32,5 @@ def ClienteTCP():
     socketCliente.close()
 
 
-
-#def iniciar():
-
-
-ClienteUDP()
-#ClienteTCP()
+#ClienteUDP()
+ClienteTCP()
