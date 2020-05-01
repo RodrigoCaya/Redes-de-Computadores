@@ -29,12 +29,20 @@ def ServidorTCP():
         socketCliente, direccionCliente = socketServidor.accept()
         mensaje = socketCliente.recv(2048).decode()
         print("Se recibio: ", mensaje)
+        socketServidor.connect((mensaje, 80))
+        socketServidor.sendall(b"GET / HTTP/1.1\r\nHost: mensaje\r\nAccept: text/html\r\nConnection: close\r\n\r\n")
         respuesta = "Respuesta: "+ mensaje.upper()
         socketCliente.send(respuesta.encode())
         socketCliente.close()
 
-#ServidorUDP()
-ServidorTCP()
+
+
+#def iniciar():
+
+
+
+ServidorUDP()
+#ServidorTCP()
 
 
 

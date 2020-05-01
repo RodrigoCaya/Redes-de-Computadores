@@ -2,6 +2,12 @@ import socket as sock
 
 direccionServidor = 'localhost'
 
+def enviarTxt(mensaje):
+    f = open("URL.txt","w")
+    f.write(mensaje)
+    f.close()
+
+
 def ClienteUDP():
     # 49152 - 65535
     puertoServidor = 55555
@@ -12,6 +18,7 @@ def ClienteUDP():
     #esperar una respuesta
     mensaje, _ = socketCliente.recvfrom(2048)
     print(mensaje.decode())
+    enviarTxt(mensaje.decode())
     socketCliente.close()
 
 
@@ -27,5 +34,9 @@ def ClienteTCP():
     socketCliente.close()
 
 
-#ClienteUDP()
-ClienteTCP()
+
+#def iniciar():
+
+
+ClienteUDP()
+#ClienteTCP()
