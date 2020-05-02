@@ -1,0 +1,131 @@
+link   www.twitter.com
+
+
+link   HTTP/1.1 301 Moved Permanently
+
+content-length: 0
+
+date: Sat, 02 May 2020 08:32:15 GMT
+
+location: https://www.twitter.com/
+
+server: tsa_d
+
+set-cookie: personalization_id="v1_A9A6z+2v9ow6hYzsdEPe7w=="; Max-Age=63072000; Expires=Mon, 2 May 2022 08:32:15 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+
+set-cookie: guest_id=v1%3A158840833540290192; Max-Age=63072000; Expires=Mon, 2 May 2022 08:32:15 GMT; Path=/; Domain=.twitter.com; Secure; SameSite=None
+
+x-connection-hash: d1300dc6a4b0385dbaa0cdd22eb471da
+
+x-response-time: 118
+
+
+
+link   www.amazon.com
+
+
+link   HTTP/1.1 301 Moved Permanently
+
+Server: CloudFront
+
+Date: Sat, 02 May 2020 08:32:25 GMT
+
+Content-Type: text/html
+
+Content-Length: 183
+
+Connection: keep-alive
+
+Location: https://www.amazon.com/
+
+X-Cache: Redirect from cloudfront
+
+Via: 1.1 b37cc7ef8dedff2c0260690fd3934220.cloudfront.net (CloudFront)
+
+X-Amz-Cf-Pop: SCL50-C1
+
+X-Amz-Cf-Id: DD2rK0nXqan1C8LRoPAdwk_62RL_wqQvBokoKOfCkrx2jYo_2SMlhQ==
+
+
+
+<html>
+
+<head><title>301 Moved Permanently</title></head>
+
+<body bgcolor="white">
+
+<center><h1>301 Moved Permanently</h1></center>
+
+<hr><center>CloudFront</center>
+
+</body>
+
+</html>
+
+link   www.youtube.com
+
+
+link   HTTP/1.1 301 Moved Permanently
+
+Content-Type: text/html; charset=utf-8
+
+P3P: CP="This is not a P3P policy! See http://support.google.com/accounts/answer/151657?hl=en for more info."
+
+Location: https://www.youtube.com/
+
+Expires: Tue, 27 Apr 1971 19:44:06 GMT
+
+X-Content-Type-Options: nosniff
+
+Content-Length: 0
+
+Cache-Control: no-cache
+
+Date: Sat, 02 May 2020 08:32:31 GMT
+
+Server: YouTube Frontend Proxy
+
+X-XSS-Protection: 0
+
+Set-Cookie: VISITOR_INFO1_LIVE=oMAxeEr44GE; path=/; domain=.youtube.com; expires=Thu, 29-Oct-2020 08:32:31 GMT; httponly; samesite=None
+
+Set-Cookie: YSC=j3Y8y1A23OY; path=/; domain=.youtube.com; httponly; samesite=None
+
+
+
+link   www.aedo.com
+
+
+link   HTTP/1.1 301 Moved Permanently
+
+Server: nginx/1.2.1
+
+Date: Sat, 02 May 2020 08:32:41 GMT
+
+Content-Type: text/html; charset=utf-8
+
+Content-Length: 294
+
+Connection: keep-alive
+
+Location: https://aedo.ai
+
+X-Catalyst: 5.90015
+
+Expires: Sat, 02 May 2020 08:32:40 GMT
+
+Cache-Control: no-cache
+
+Pragma: no-cache
+
+Cache-contol: no-cache, must-revalidate, private, no-store
+
+
+
+link www.gob.cl
+link HTTP/1.1 301 Moved Permanently
+Date: Sat, 02 May 2020 08:33:55 GMT
+Content-Length: 0
+Connection: keep-alive
+Location: https://www.gob.cl/
+

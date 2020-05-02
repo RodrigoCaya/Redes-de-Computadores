@@ -1,1 +1,6 @@
-WWW.AEDO.COM
+HTTP/1.1 301 Moved Permanently
+Date: Sat, 02 May 2020 08:33:55 GMT
+Content-Length: 0
+Connection: keep-alive
+Location: https://www.gob.cl/
+

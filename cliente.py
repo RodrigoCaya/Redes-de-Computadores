@@ -1,4 +1,5 @@
 import socket as sock
+import time
 
 direccionServidor = 'localhost'
 
@@ -7,17 +8,18 @@ def enviarTxt(mensaje):
     f.write(mensaje)
     f.close()
 
-def ClienteUDP():
-    # 49152 - 65535
-    puertoServidor = 55555
+def ClienteUDP(respuesta):
+    puertoServidor = int(respuesta)
     #inet = ipv4 | dgram = udp
     socketCliente = sock.socket(sock.AF_INET, sock.SOCK_DGRAM)
-    aEnviar = input("Ingresar texto: ")
+    aEnviar = "OK"
     socketCliente.sendto(aEnviar.encode(), (direccionServidor, puertoServidor))
     #esperar una respuesta
     mensaje, _ = socketCliente.recvfrom(2048)
-    print(mensaje.decode())
+    #print(mensaje.decode())
     socketCliente.close()
+    enviarTxt(mensaje.decode())
+
 
 
 def ClienteTCP():
@@ -28,8 +30,12 @@ def ClienteTCP():
     aEnviar = input('Ingrese texto: ')
     socketCliente.send(aEnviar.encode())
     respuesta = socketCliente.recv(2048).decode()
-    print(respuesta)
     socketCliente.close()
+    if("Error" in respuesta):
+        print(respuesta)
+    else:
+        time.sleep(1)
+        ClienteUDP(respuesta)
 
 
 #ClienteUDP()
