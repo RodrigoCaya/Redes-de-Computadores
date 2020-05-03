@@ -76,7 +76,7 @@ def ServidorUDP(header):
     socketServidor.bind(('', PuertoUDP))
     print("Servidor escuchando en puerto:", PuertoUDP)
     while True:
-        #Recive el mensaje del cliente
+        #Recibe el mensaje del cliente
         mensaje, direccionCliente = socketServidor.recvfrom(2048)
         decodificado = mensaje.decode()
         print("Se recibio: ", decodificado)
@@ -97,7 +97,7 @@ def ServidorTCP():
     print("Servidor TCP escuchando en puerto: ", PuertoTCP)
     while True:
         socketCliente, _ = socketServidor.accept()
-        #Recive el mensaje del cliente
+        #Recibe el mensaje del cliente
         mensaje = socketCliente.recv(2048).decode()
         #Termina la conexion TCP
         if(mensaje == "terminate"):
