@@ -30,10 +30,10 @@ def ClienteTCP():
     aEnviar = input('Ingrese pagina web: ')
     #Se envia la pagina web al servidor
     socketCliente.send(aEnviar.encode())
-    #Recive la respuesta del servidor
+    #Recibe la respuesta del servidor
     respuesta = socketCliente.recv(2048).decode()
     socketCliente.close()
-    #Revisa si la respuesta no es un error o si te termino la conexion
+    #Revisa si la respuesta no es un error o si se termino la conexion
     if("Error" in respuesta):
         print(respuesta)
     if(respuesta == ''):

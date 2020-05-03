@@ -3,7 +3,7 @@ import socket as sock
 PuertoTCP = 51556
 PuertoUDP = 56988
 
-#Crea el archivo cache.txt si no existe, sino lee su contenido y lo entrega como lista de tupla
+#Crea el archivo cache.txt si no existe, si no, lee su contenido y lo entrega como lista de tupla
 #Esta lista de tupla contiene los valores (link,header)
 def cache():
     lista = []
