@@ -23,7 +23,7 @@ def ClienteUDP(respuesta):
 
 
 def ClienteTCP():
-    puertoServidor = 55556
+    puertoServidor = 51556
     socketCliente = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
     #esta funcion realiza el handshake
     socketCliente.connect((direccionServidor, puertoServidor))

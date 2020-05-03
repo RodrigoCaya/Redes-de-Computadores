@@ -31,12 +31,15 @@ import socket as sock
 
 #*) VER CASOS DONDE LA WEA NO FUNCIONA (www.caya.cl)
 
-PuertoTCP = 55556
-PuertoUDP = 55555
+PuertoTCP = 51556
+PuertoUDP = 56988
 
 def cache():
     lista = []
-    cache = open("cache.txt", "r+")
+    try:
+        cache = open("cache.txt", "r+")
+    except(FileNotFoundError):
+        cache = open("cache.txt", "w+")
     texto = cache.read()
     splits = texto.split("link",-1)
     temp = (int((len(splits)-1)/2))
@@ -128,18 +131,18 @@ def ServidorTCP():
             agregarCache(lista)
             break
         print("Se recibio: ", mensaje)
-        print("LISTAAAAAAA ",lista)
+        #print("LISTAAAAAAA ",lista)
         lista,estado = actualizarCache(lista,mensaje)
-        print("LISTAAAAAAA ",lista)
+        #print("LISTAAAAAAA ",lista)
         if(estado == ""):
             header,codigo = conectar(mensaje)
             if(len(lista) < 5):
                 lista.append((mensaje,header))
-                print("LISTAAAAAAA =  ",lista)
+                #print("LISTAAAAAAA =  ",lista)
                 
             else:
                 lista[4] = (mensaje,header)
-                print("LISTAAAAAAA:  ",lista)
+                #print("LISTAAAAAAA:  ",lista)
 
         else:
             header = estado

@@ -1,6 +1,26 @@
-HTTP/1.1 301 Moved Permanently
-Date: Sat, 02 May 2020 08:33:55 GMT
-Content-Length: 0
-Connection: keep-alive
-Location: https://www.gob.cl/
-
+ HTTP/1.1 301 Moved Permanently
+
+Server: nginx/1.2.1
+
+Date: Sun, 03 May 2020 01:14:48 GMT
+
+Content-Type: text/html; charset=utf-8
+
+Content-Length: 294
+
+Connection: keep-alive
+
+Location: https://aedo.ai
+
+X-Catalyst: 5.90015
+
+Expires: Sun, 03 May 2020 01:14:47 GMT
+
+Cache-Control: no-cache
+
+Pragma: no-cache
+
+Cache-contol: no-cache, must-revalidate, private, no-store
+
+
+
