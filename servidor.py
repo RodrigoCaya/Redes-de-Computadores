@@ -1,39 +1,10 @@
 import socket as sock
 
-#0) el TCP servidor tiene que enviar al TCP cliente qe la url esta disponible o no, y tambien enviar el puerto del UDP (55555) LISTOOOO 
-#1) cortar el header (hasta el <!DOCTYPE) LISTOOOOOO
-#1.5) hacer el quit del udp LISTOOOOO
-#2) hacer el cache
-#3) Cambiar a UDP LISTOOOOO
-#4) enviar el header por UDP LISTOOOO
-#5) escribir el header en URL.txt LISTOOOO
-
-#cache
-#1) crear cache.txt F1
-#2) crear la lista y qe se actualice al iniciar el servidor F1
-#3) buscar el header en la lista y retornarlo F2
-#3.1) en caso de que esté, retornar F2
-#3.2) caso contrario, borrar el primer url, retornar F2
-#4) mover los header hacia adelante F2
-#5) agregar ese link al final de la lista (link \n header) F2
-#6) actualizar cache.txt antes de cerrar el servidor F2
-
-
-#cache.txt:
-#aedo.com
-#jean.com
-#caya.com
-#pantufla.com
-#google.com
-
-#| 1 | 2 | 3 | 4 | 5 |
-
-
-#*) VER CASOS DONDE LA WEA NO FUNCIONA (www.caya.cl)
-
 PuertoTCP = 51556
 PuertoUDP = 56988
 
+#Crea el archivo cache.txt si no existe, sino lee su contenido y lo entrega como lista de tupla
+#Esta lista de tupla contiene los valores (link,header)
 def cache():
     lista = []
     try:
@@ -50,8 +21,7 @@ def cache():
     return lista
 
     
-    
-
+#Agrega el link y header al cache
 def agregarCache(lista):
     caxe = open("cache.txt", "w+")
     for link,header in lista:
@@ -59,36 +29,38 @@ def agregarCache(lista):
         caxe.write("link "+header)
 
 
-     
-
+#Trabaja el cache en la lista 
+#Se visualiza la lista como a-b-c-d-e en los comentarios
 def actualizarCache(lista, url):
     retorno = ""
-    for i in range(len(lista)):   #busca uno por uno en la lista y cuando encuentra pasa a los siguies hacia adelante # a-b-c -> a-c-c
-        #print("i = ", i)
+    #Elimina un elemento en la lista y mueve la lista hacia adelante al momento de encontrarlo
+    #Ejemplo busca b  a-b-c-d-e -> a-c-d-e-e
+    for i in range(len(lista)):
         if(retorno!=""):
             lista[i-1] = lista[i]
         urll,_ = lista[i]
         if(url in urll):
-            #print("entreeeeee")
             url_temp = url
             _,retorno = lista[i]
-        #print("listaaaa = ",lista)
+    #Si no encuentra el valor dentro del cache, elimina el primero
+    #Ejemplo a-b-c-d-e -> b-c-d-e-e
     if(retorno == ""):                             
         if(len(lista)==5):
-            for i in (range(len(lista)-1)): # a-b-c-d-e -> b-c-d-e-e
+            for i in (range(len(lista)-1)): 
                 lista[i] = lista[i+1]
+    #Si lo encuentra, agrega el encontrado al final
+    #Ejemplo a-c-d-e-e -> a-c-d-e-b
     else:                                              
-        lista[len(lista)-1] = (url_temp,retorno) # a-c-c -> a-c-b
-    #print("listaaaa : ",lista)
+        lista[len(lista)-1] = (url_temp,retorno) 
     return (lista,retorno)
 
 
-#funcion para cortar el get para solo tener el header, osea, cortar hasta el DOCTYPE
+#Elimina el HTML dentro del mensaje, solo deja el header
 def cortar(mensaje):
     splits = mensaje.split("<!",1)
     return ((splits[0],splits[0].split()[1]))
 
-
+#Se conecta con la pagina para realizar un GET
 def conectar(mensaje):
     socketServidor = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
     socketServidor.connect((mensaje, 80))
@@ -97,76 +69,69 @@ def conectar(mensaje):
     return (cortar(mensaje))
     
 
+#Realiza una conexion UDP con el cliente para entregar el header
 def ServidorUDP(header):
     #inet = ipv4 | dgram = udp
-    #print("HOLAAAAAA")
     socketServidor = sock.socket(sock.AF_INET, sock.SOCK_DGRAM)
     socketServidor.bind(('', PuertoUDP))
     print("Servidor escuchando en puerto:", PuertoUDP)
     while True:
-        mensaje, direccionCliente = socketServidor.recvfrom(2048)#la cantidad de bits que recive a través del socket - tamaño del buffer
+        #Recive el mensaje del cliente
+        mensaje, direccionCliente = socketServidor.recvfrom(2048)
         decodificado = mensaje.decode()
         print("Se recibio: ", decodificado)
         if(decodificado == "OK"):
+            #Envia el header al cliente
             socketServidor.sendto(header.encode(),direccionCliente)
         socketServidor.close()
         break
-        #respuesta = decodificado.upper()#dejarlo en mayuscula
         
-
+#Realiza la conexion TCP con el cliente
 def ServidorTCP():
     #inet = ipv4 | stream = TCP
     lista = cache()
-    #print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",len(lista))
     socketServidor = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
     socketServidor.bind(('', PuertoTCP))
-    #hay qe decirle que empiece a escuchar las conexiones
     #indica que espere el handshake
-    socketServidor.listen(1) #el parametro indica la cantidad maxima de cola
+    socketServidor.listen(1)
     print("Servidor TCP escuchando en puerto: ", PuertoTCP)
     while True:
-        socketCliente, direccionCliente = socketServidor.accept()
+        socketCliente, _ = socketServidor.accept()
+        #Recive el mensaje del cliente
         mensaje = socketCliente.recv(2048).decode()
+        #Termina la conexion TCP
         if(mensaje == "terminate"):
             agregarCache(lista)
+            socketServidor.close()
             break
         print("Se recibio: ", mensaje)
-        #print("LISTAAAAAAA ",lista)
+        #Se busca en el cache
         lista,estado = actualizarCache(lista,mensaje)
-        #print("LISTAAAAAAA ",lista)
+        #Si no se encuentra en el cache
         if(estado == ""):
             header,codigo = conectar(mensaje)
             if(len(lista) < 5):
-                lista.append((mensaje,header))
-                #print("LISTAAAAAAA =  ",lista)
-                
+                lista.append((mensaje,header))                
             else:
                 lista[4] = (mensaje,header)
-                #print("LISTAAAAAAA:  ",lista)
-
+        #Si se encuentra en el cache
         else:
             header = estado
             codigo = "200"
+        #Si el header no tiene error
         if(codigo == "200" or codigo == "301"):
             respuesta = str(PuertoUDP)
+            #Se envia el puerto UDP
             socketCliente.send(respuesta.encode())
             socketCliente.close()
+            #Realiza la conexion UDP
             ServidorUDP(header)
-            
+        #Si el header tiene error
         else:
             respuesta = "Error "+codigo
+            #Envia el error al cliente
             socketCliente.send(respuesta.encode())
             socketCliente.close()
             
         
-
-#ServidorUDP()  
 ServidorTCP()
-
-#lista = [("l1","h1"),("l2","h2"),("l3","h3"),("l4","h4"),("l5","h5")]
-#print("PRUEBA 1: ",actualizarCache(lista,"l1"))
-#print("PRUEBA 2: ",actualizarCache(lista,"l6"))
-#print("PRUEBA 3: ",actualizarCache(lista,"l3"))
-#print("PRUEBA 0: ",actualizarCache(lista,"l1"))
-
-#cache()
